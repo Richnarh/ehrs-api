@@ -1,0 +1,163 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">  
+
+    <h:body>
+        <ui:composition template="../templatesUI.xhtml">
+            <ui:define name="pageTitle">
+                User Account
+            </ui:define>
+
+            <ui:define name="pageContent">
+                <div class="card shadow-sm">
+                    <h5 class="card-header">Register new employee</h5>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h:form id="accountForm">
+                                    <h:panelGrid columns="4" class="spaced-form">
+                                        <span>Title</span>
+                                        <p:selectOneMenu class="col" value="#{userController.employee.title}" required="true">
+                                            <f:selectItem itemLabel="#{msg.choose}"/>
+                                            <f:selectItems value="#{userCommons.titleList}"/>
+                                        </p:selectOneMenu>
+                                        
+                                        <span>#{msg.fullname} <span class="text-danger">*</span></span>
+                                        <p:inputText value="#{userController.employee.firstname}" required="true"/>
+                                        
+                                        <span>Middle Name</span>
+                                        <p:inputText value="#{userController.employee.middlename}"/>
+
+                                        <span>Other Name <span class="text-danger">*</span></span>
+                                        <p:inputText value="#{userController.employee.lastname}" required="true"/>
+                                        
+                                        <span>Email<span class="text-danger">*</span></span>
+                                        <p:inputText value="#{userController.employee.emailAddress}" required="true"/>
+
+                                        <span>#{msg.phone}</span>
+                                        <p:inputText value="#{userController.employee.phoneNumber}"/>
+
+                                        <span>#{msg.address}</span>
+                                        <p:inputText value="#{userController.employee.address}"/>
+
+                                        <span>Department</span>
+                                        <p:selectOneMenu class="col" value="#{userController.employee.department}" required="true">
+                                            <f:selectItem itemLabel="#{msg.choose}"/>
+                                            <f:selectItems value="#{userCommons.departmentList}"/>
+                                        </p:selectOneMenu>
+                                        
+                                        <span>Job Role</span>
+                                        <p:selectOneMenu class="col" value="#{userController.employee.jobRole}" required="true">
+                                            <f:selectItem itemLabel="#{msg.choose}"/>
+                                            <f:selectItems value="#{userCommons.jobRoleList}"/>
+                                        </p:selectOneMenu>
+                                        
+                                        <span>Status</span>
+                                        <p:selectOneMenu class="col" value="#{userController.employee.status}" required="true">
+                                            <f:selectItem itemLabel="#{msg.choose}"/>
+                                            <f:selectItems value="#{userCommons.statusList}"/>
+                                        </p:selectOneMenu>
+                                        
+                                        <span>#{msg.access_level}</span>
+                                        <p:selectOneMenu class="col" value="#{userController.employee.accessLevel}">
+                                            <f:selectItem itemLabel="#{msg.choose}"/>
+                                            <f:selectItems value="#{userCommons.accessLevelList}"/>
+                                        </p:selectOneMenu>
+                                        
+                                        <span>Id Type</span>
+                                        <p:selectOneMenu class="col" value="#{userController.employee.idType}" required="true">
+                                            <f:selectItem itemLabel="#{msg.choose}"/>
+                                            <f:selectItems value="#{userCommons.idTypeList}"/>
+                                        </p:selectOneMenu>
+                                        
+                                        <span>Id No.</span>
+                                        <p:inputText value="#{userController.employee.idNumber}"/>
+                                        
+                                        <span>SSNIT No.</span>
+                                        <p:inputText value="#{userController.employee.ssnitNo}"/>
+                                    </h:panelGrid>
+                                    <hr/>
+                                    <center>
+                                        <p:commandButton class="kbtn-success mx-2" value="#{userController.optionText}" action="#{userController.saveEmployee()}" update="@form, :accountTable"/>
+                                        <p:commandButton class="kbtn-default" value="Clear" icon="#{msg.clear_icon}" action="#{userController.clear()}" immediate="true" ajax="false"/>
+                                    </center>
+                                </h:form>
+                            </div>
+                        </div>
+                        <hr/>
+                        <div>
+                            <h:form id="accountTable">
+                                <p:dataTable value="#{userController.employeeList}" var="employee" scrollable="true" scrollHeight="400">
+                                    <p:column style="width: 25px;">
+                                        <p:rowToggler/>
+                                    </p:column>
+
+                                    <p:rowExpansion>
+                                        <h:panelGrid columns="2">
+                                            <span>Title</span>
+                                            <h:outputText value="#{employee.title}"/>
+                                            
+                                            <span>#{msg.address}</span>
+                                            <h:outputText value="#{employee.address}"/>
+                                            
+                                            <span>SSNIT No.</span>
+                                            <h:outputText value="#{employee.ssnitNo}"/>
+                                            
+                                            <span>Id Type</span>
+                                            <h:outputText value="#{employee.idType}"/>
+                                            
+                                            <span>Id No</span>
+                                            <h:outputText value="#{employee.idNumber}"/>
+                                            
+                                            <span>#{msg.created_date}</span>
+                                            <h:outputText value="#{employee.createdDate}">
+                                                <f:convertDateTime pattern="#{msg.formatted_date}" type="localDate"/>
+                                            </h:outputText>
+
+                                        </h:panelGrid>
+                                    </p:rowExpansion>
+
+                                    <p:column headerText="Full name">
+                                        #{employee.firstname} #{employee.middlename} #{employee.lastname}
+                                    </p:column>
+
+                                    <p:column headerText="Phone No.">
+                                        #{employee.phoneNumber}
+                                    </p:column>
+
+                                    <p:column headerText="Email">
+                                        #{employee.emailAddress}
+                                    </p:column>
+
+                                    <p:column headerText="Department">
+                                        #{employee.department.departmentName}
+                                    </p:column>
+                                    
+                                    <p:column headerText="Job Role">
+                                        #{employee.jobRole.roleName}
+                                    </p:column>
+
+                                    <p:column headerText="#{msg.status}">
+                                        #{employee.status}
+                                    </p:column>
+                                    <p:column headerText="#{msg.action}" style="width:100px">
+                                        <p:menuButton value="#{msg.choose}">
+                                            <p:menuitem icon="#{msg.cog_icon}" value="#{msg.edit}" action="#{userController.editEmployee(employee)}" update=":accountForm"/>
+                                            <p:menuitem icon="#{msg.delete_icon}" value="#{msg.delete}" action="#{userController.deleteEmployee(employee)}" update="@form"/>
+                                        </p:menuButton>
+                                    </p:column>
+                                </p:dataTable>
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

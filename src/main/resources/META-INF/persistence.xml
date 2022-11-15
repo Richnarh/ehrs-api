@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.2" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
+  <!-- Define Persistence Unit -->
+  <persistence-unit name="ehrsPU">
+    <jta-data-source>jdbc/ehrs</jta-data-source>
+    <class>com.khoders.ehrs.entity.account.Billing</class>
+    <class>com.khoders.ehrs.entity.administration.Employee</class>
+    <class>com.khoders.ehrs.entity.administration.UserAccount</class>
+    <class>com.khoders.ehrs.entity.lab.Lab</class>
+    <class>com.khoders.ehrs.entity.lab.LabResult</class>
+    <class>com.khoders.ehrs.entity.lab.LabTest</class>
+    <class>com.khoders.ehrs.entity.leave.LeaveRequest</class>
+    <class>com.khoders.ehrs.entity.leave.SpecialLeave</class>
+    <class>com.khoders.ehrs.entity.patient.Patient</class>
+    <class>com.khoders.ehrs.entity.patient.PatientAdmission</class>
+    <class>com.khoders.ehrs.entity.pharmacy.StockReceipt</class>
+    <class>com.khoders.ehrs.entity.patient.Ward</class>
+    <class>com.khoders.ehrs.entity.settings.JobRole</class>
+    <class>com.khoders.ehrs.entity.settings.Department</class>
+    <class>com.khoders.ehrs.entity.settings.WardType</class>
+    <class>com.khoders.ehrs.entity.settings.LeaveType</class>
+    <class>com.khoders.ehrs.entity.pharmacy.Inventory</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+  </persistence-unit>
+</persistence>
